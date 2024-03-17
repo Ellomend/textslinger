@@ -1,7 +1,6 @@
-
 export function useValidation() {
-  const minLength = 2
-  const maxTitleLength = 100
+  const minLength = 2;
+  const maxTitleLength = 100;
 
   const validationMessages = {
     minLength: `Minimum length is ${minLength} characters.`,
@@ -10,24 +9,23 @@ export function useValidation() {
 
   const validateTitle = (value: string): true | string => {
     if (value.length < minLength) {
-      return validationMessages['minLength']
-    } else if (value.length > maxTitleLength) {
-      return validationMessages['maxLength']
+      return validationMessages.minLength;
+    } if (value.length > maxTitleLength) {
+      return validationMessages.maxLength;
     }
-    return true
-  }
+    return true;
+  };
 
   const validateContent = (value: string): true | string => {
     if (value.length < minLength) {
-      return validationMessages['minLength']
-    } else {
-      return true
+      return validationMessages.minLength;
     }
-  }
+    return true;
+  };
 
   return {
     validateTitle,
     validateContent,
-    validationMessages
-  }
+    validationMessages,
+  };
 }

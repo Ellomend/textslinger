@@ -23,8 +23,8 @@ export default defineComponent({
   props: {
     text: {
       type: Object as () => TextEntity,
-      required: true
-    }
+      required: true,
+    },
   },
   setup() {
     const showDialog = ref<boolean>(false);
@@ -34,11 +34,11 @@ export default defineComponent({
     };
 
     const onCloseClicked = () => {
-      showDialog.value = false
-    }
+      showDialog.value = false;
+    };
 
     return { toggleDialog, showDialog, onCloseClicked };
   },
-  components: { TextForm }
+  components: { TextForm },
 });
 </script>

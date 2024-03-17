@@ -17,8 +17,6 @@ export type PersistanceKeys = 'texts' | 'options'
 
 // use chrome storage local
 export class StorePersistenceService {
-
-
   static async saveData(data: PersistData, key: PersistanceKeys): Promise<void> {
     return new Promise((resolve, reject) => {
       const jsonData = JSON.stringify(data); // Serialize data to JSON string

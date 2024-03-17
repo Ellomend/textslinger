@@ -38,7 +38,6 @@ export default defineComponent({
   name: 'CategoriesDropdown',
   components: { CategoryEdit, NewCategoryButton },
   setup() {
-
     const {
       selectCategory,
       selectedCategoryId,
@@ -50,16 +49,14 @@ export default defineComponent({
       selectCategory(category.id);
     };
 
-    const buttonTitle = computed(() => {
-      return selectedCategory.value?.title || 'Select category';
-    });
+    const buttonTitle = computed(() => selectedCategory.value?.title || 'Select category');
 
     return {
       computedCategories,
       onCategoryClicked,
       selectedCategoryId,
-      buttonTitle
+      buttonTitle,
     };
-  }
+  },
 });
 </script>

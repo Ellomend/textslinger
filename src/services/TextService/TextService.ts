@@ -1,4 +1,6 @@
-import { CategoryEntity, CategoryEntityStub, TextEntity, TextEntityStub } from './BaseTypes';
+import {
+  CategoryEntity, CategoryEntityStub, TextEntity, TextEntityStub,
+} from './BaseTypes';
 import { randomParagraph, randomTitle, randomUID } from './TextUtils';
 
 export class TextService {
@@ -8,8 +10,8 @@ export class TextService {
       title: randomTitle(),
       content: randomParagraph(),
       category: null,
-      ...text
-    }
+      ...text,
+    };
   }
 
   // create category
@@ -17,14 +19,15 @@ export class TextService {
     const res = {
       id: randomUID(),
       title: randomTitle(),
-      ...category
-    }
-    return res
+      ...category,
+    };
+    return res;
   }
+
   // add text to category
   static addTextToCategory(category: CategoryEntity, text: TextEntity): TextEntity {
-    text.category = category.id
-    return text
+    text.category = category.id;
+    return text;
   }
 
   // fake data
@@ -35,11 +38,11 @@ export class TextService {
       TextService.categoryFactory(),
       TextService.categoryFactory(),
       TextService.categoryFactory(),
-    ]
+    ];
     // for each category add 5 texts using textFactory
     const texts: TextEntity[] = [];
 
-    categories.forEach(category => {
+    categories.forEach((category) => {
       for (let i = 0; i < 5; i++) {
         let text = this.textFactory();
         text = this.addTextToCategory(category, text);

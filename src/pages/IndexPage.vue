@@ -19,6 +19,6 @@ export default defineComponent({
   components: { PopupView },
   setup() {
     return {};
-  }
+  },
 });
 </script>

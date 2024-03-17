@@ -26,7 +26,7 @@ export default defineComponent({
   components: {
     TextSearch,
     CategoriesDropdown,
-    TextListContainer
-  }
+    TextListContainer,
+  },
 });
 </script>

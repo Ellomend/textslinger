@@ -38,9 +38,9 @@
 <script lang="ts">
 import { TextEntity } from 'src/services/TextService/BaseTypes';
 import { computed, defineComponent, ref } from 'vue';
-import TextItemEditButton from './TextItemEditButton.vue';
 import { useStringUtils } from 'src/composables/general/useStringUtils';
 import { useTextEntity } from 'src/composables/general/useTextEntity';
+import TextItemEditButton from './TextItemEditButton.vue';
 
 export default defineComponent({
   name: 'TextItemExpandableCard',
@@ -48,39 +48,34 @@ export default defineComponent({
   props: {
     text: {
       type: Object as () => TextEntity,
-      required: true
+      required: true,
     },
   },
   setup(props) {
+    const cutoff = 150;
 
-    const cutoff = 150
+    const expanded = ref<boolean>(false);
 
-    const expanded = ref<boolean>(false)
-
-    const isLong = computed(() => {
-      return props.text.content.length > cutoff
-    });
-
+    const isLong = computed(() => props.text.content.length > cutoff);
 
     // copy to clipboard
-    const { textToClipBoard } = useTextEntity(null)
+    const { textToClipBoard } = useTextEntity(null);
 
     const copyText = (text: string) => {
-      textToClipBoard(text)
-    }
+      textToClipBoard(text);
+    };
 
     // text display
-    const { textContentStart } = useStringUtils()
+    const { textContentStart } = useStringUtils();
 
     // TODO: do we really want this abstraction ???
     // we probably should just do str logic here
     // maybe later
-    const textDisplay = (content: string) => {
-      return textContentStart(content, 200)
-    }
+    const textDisplay = (content: string) => textContentStart(content, 200);
 
-    return { expanded, copyText, textDisplay, isLong }
-
+    return {
+      expanded, copyText, textDisplay, isLong,
+    };
   },
 });
 </script>

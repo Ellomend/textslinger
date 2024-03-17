@@ -16,36 +16,35 @@
 <script lang="ts">
 import { useTextEntity } from 'src/composables/general/useTextEntity';
 import { defineComponent, ref } from 'vue';
-import TextForm from './TextForm.vue';
 import { TextEntity } from 'src/services/TextService/BaseTypes';
+import TextForm from './TextForm.vue';
 
 export default defineComponent({
   name: 'NewTextButton',
   setup() {
-
     const { addTextToStore, textFactory } = useTextEntity(null);
 
     const openDialog = ref<boolean>(false);
     const newText = ref<TextEntity>(textFactory({
       title: '',
-      content: ''
-    }))
+      content: '',
+    }));
 
     const onClose = () => {
       openDialog.value = false;
       newText.value = textFactory({
         title: '',
-        content: ''
-      })
+        content: '',
+      });
     };
 
     return {
       newText,
       onClose,
       openDialog,
-      addTextToStore
+      addTextToStore,
     };
   },
-  components: { TextForm }
+  components: { TextForm },
 });
 </script>

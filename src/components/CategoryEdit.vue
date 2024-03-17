@@ -20,7 +20,6 @@ export default defineComponent({
   name: 'CategoryEdit',
   components: { CategoryForm },
   setup() {
-
     const openDialog = ref<boolean>(false);
 
     const onCloseEvent = () => {
@@ -32,8 +31,8 @@ export default defineComponent({
     return {
       openDialog,
       selectedCategory,
-      onCloseEvent
+      onCloseEvent,
     };
-  }
+  },
 });
 </script>

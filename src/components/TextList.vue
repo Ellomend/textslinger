@@ -13,7 +13,7 @@ export default defineComponent({
   name: 'TextList',
   components: { TextItemExpandableCard },
   props: {
-    texts: Object as () => TextEntity[]
+    texts: Object as () => TextEntity[],
   },
 });
 </script>

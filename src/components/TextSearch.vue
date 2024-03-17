@@ -19,20 +19,16 @@ import { useSearch } from 'src/composables/general/useSearch';
 export default defineComponent({
   name: 'TextSearch',
   setup() {
-
-    const { searchString, updateSearchString } = useSearch()
+    const { searchString, updateSearchString } = useSearch();
 
     // weird method signature for q-input event, converting to string
     const searchStringUpdated = (newString: string | number | null) => {
-      updateSearchString(`${newString}`)
-    }
+      updateSearchString(`${newString}`);
+    };
 
-    const stringNotEmpty = computed(() => {
-      return !!searchString.value.length
-    });
+    const stringNotEmpty = computed(() => !!searchString.value.length);
 
-
-    return { searchString, searchStringUpdated, stringNotEmpty }
+    return { searchString, searchStringUpdated, stringNotEmpty };
   },
 });
 </script>

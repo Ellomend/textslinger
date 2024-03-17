@@ -1,18 +1,16 @@
 import { computed, ref } from 'vue';
-import { CategoryEntity, TextEntity } from './../../services/TextService/BaseTypes';
 import { useTextsStore } from 'src/stores/texts-store';
 import { TextService } from 'src/services/TextService/TextService';
+import { CategoryEntity, TextEntity } from '../../services/TextService/BaseTypes';
 
 export function useCategoryEntity(categoryProp: CategoryEntity | null | undefined = null) {
   const textsStore = useTextsStore();
 
-  const editedCategoryFactory = (category: CategoryEntity | null | undefined): CategoryEntity => {
-    return TextService.categoryFactory(category || {})
-  };
+  const editedCategoryFactory = (category: CategoryEntity | null | undefined): CategoryEntity => TextService.categoryFactory(category || {});
 
   const editedCategory = ref<CategoryEntity>(editedCategoryFactory(categoryProp));
 
-  const categoryFactory = TextService.categoryFactory
+  const { categoryFactory } = TextService;
 
   const updateCategoryInStore = (category: CategoryEntity): void => {
     textsStore.updateCategory(category);
@@ -31,21 +29,17 @@ export function useCategoryEntity(categoryProp: CategoryEntity | null | undefine
   };
 
   const updateTextCategory = (text: TextEntity, categoryId: string): void => {
-    const newCategoryId = text.id === categoryId ? null : categoryId
+    const newCategoryId = text.id === categoryId ? null : categoryId;
     const updatedText: TextEntity = {
       ...text,
-      category: newCategoryId
-    }
-    textsStore.updateText(updatedText)
-  }
+      category: newCategoryId,
+    };
+    textsStore.updateText(updatedText);
+  };
 
-  const selectedCategory = computed(() => {
-    return textsStore.getSelectedCategory
-  })
+  const selectedCategory = computed(() => textsStore.getSelectedCategory);
 
-  const computedCategories = computed(() => {
-    return textsStore.categories
-  })
+  const computedCategories = computed(() => textsStore.categories);
 
   return {
     editedCategory,
@@ -57,6 +51,6 @@ export function useCategoryEntity(categoryProp: CategoryEntity | null | undefine
     computedCategories,
     selectedCategory,
     categoryFactory,
-    updateTextCategory
+    updateTextCategory,
   };
 }

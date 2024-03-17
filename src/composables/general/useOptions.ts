@@ -1,17 +1,15 @@
-import { useOptionsStore } from 'src/stores/options-store'
-import { computed } from 'vue'
+import { useOptionsStore } from 'src/stores/options-store';
+import { computed } from 'vue';
 
 export function useOptions() {
+  const optionsStore = useOptionsStore();
 
-  const optionsStore = useOptionsStore()
+  const wrapWithSpaces = computed(() => optionsStore.wrapWithSpaces);
 
-  const wrapWithSpaces = computed(() => optionsStore.wrapWithSpaces)
-
-  const setWrapWithSpaces = optionsStore.setWrapWithSpaces
+  const { setWrapWithSpaces } = optionsStore;
 
   return {
     wrapWithSpaces,
-    setWrapWithSpaces
-  }
-
+    setWrapWithSpaces,
+  };
 }

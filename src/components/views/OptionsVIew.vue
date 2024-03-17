@@ -19,22 +19,21 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import SpacesWrapInput from '../SpacesWrapInput.vue';
 import { useOptions } from 'src/composables/general/useOptions';
+import SpacesWrapInput from '../SpacesWrapInput.vue';
 
 export default defineComponent({
   name: 'OptionsView',
   components: {
-    SpacesWrapInput
+    SpacesWrapInput,
   },
   setup: () => {
-
-    const { wrapWithSpaces, setWrapWithSpaces } = useOptions()
+    const { wrapWithSpaces, setWrapWithSpaces } = useOptions();
 
     return {
       wrapWithSpaces,
-      setWrapWithSpaces
-    }
-  }
+      setWrapWithSpaces,
+    };
+  },
 });
 </script>

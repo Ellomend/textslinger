@@ -1,41 +1,37 @@
-
-import { copyToClipboard } from './../../services/TextService/TextUtils';
 import { computed, ref } from 'vue';
-import { TextEntity } from './../../services/TextService/BaseTypes';
 import { TextService } from 'src/services/TextService/TextService';
-import { useTextsStore } from 'src/stores/texts-store'
+import { useTextsStore } from 'src/stores/texts-store';
 import { useOptionsStore } from 'src/stores/options-store';
+import { copyToClipboard } from '../../services/TextService/TextUtils';
+import { TextEntity } from '../../services/TextService/BaseTypes';
 
 export function useTextEntity(textProp: TextEntity | null | undefined = null) {
+  const textsStore = useTextsStore();
+  const optionsStore = useOptionsStore();
 
-  const textsStore = useTextsStore()
-  const optionsStore = useOptionsStore()
+  const { textFactory } = TextService;
+  const wrapWithSpaces = computed(() => optionsStore.wrapWithSpaces);
 
-  const textFactory = TextService.textFactory
-  const wrapWithSpaces = computed(() => optionsStore.wrapWithSpaces)
+  const editingTextFactory = (text: TextEntity | null | undefined): TextEntity => textFactory(text || {});
 
-  const editingTextFactory = (text: TextEntity | null | undefined): TextEntity => {
-    return textFactory(text || {})
-  }
-
-  const editingText = ref<TextEntity>(editingTextFactory(textProp))
+  const editingText = ref<TextEntity>(editingTextFactory(textProp));
 
   const updateTextInStore = (text: TextEntity): void => {
-    textsStore.updateText(text)
-  }
+    textsStore.updateText(text);
+  };
 
   const removeTextFromStore = (text: TextEntity): void => {
-    textsStore.removeText(text.id)
-  }
+    textsStore.removeText(text.id);
+  };
 
   const addTextToStore = (text: TextEntity): void => {
-    textsStore.createText(text)
-  }
+    textsStore.createText(text);
+  };
 
   const textToClipBoard = (textString: string) => {
-    const string = wrapWithSpaces.value ? ` ${textString} ` : textString
-    copyToClipboard(string)
-  }
+    const string = wrapWithSpaces.value ? ` ${textString} ` : textString;
+    copyToClipboard(string);
+  };
 
   return {
     editingText,
@@ -43,7 +39,6 @@ export function useTextEntity(textProp: TextEntity | null | undefined = null) {
     removeTextFromStore,
     addTextToStore,
     textFactory,
-    textToClipBoard
-  }
-
+    textToClipBoard,
+  };
 }

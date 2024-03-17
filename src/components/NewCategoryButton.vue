@@ -23,22 +23,20 @@ export default defineComponent({
   name: 'NewCategoryButton',
   components: { CategoryForm },
   setup() {
+    const openDialog = ref<boolean>(false);
 
-    const openDialog = ref<boolean>(false)
+    const onClose = () => openDialog.value = false;
 
-    const onClose = () => openDialog.value = false
-
-    const { categoryFactory } = useCategoryEntity()
+    const { categoryFactory } = useCategoryEntity();
 
     const newCategory = ref<CategoryEntity>(categoryFactory({
-      title: ''
-    }))
-
+      title: '',
+    }));
 
     return {
       openDialog,
       onClose,
-      newCategory
+      newCategory,
     };
   },
 });

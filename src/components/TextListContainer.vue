@@ -22,9 +22,7 @@ export default defineComponent({
   components: { TextList, NewTextButton },
   setup() {
     const textsStore = useTextsStore();
-    const filteredTexts = computed(() => {
-      return textsStore.listTexts;
-    });
+    const filteredTexts = computed(() => textsStore.listTexts);
     return { filteredTexts };
   },
 });

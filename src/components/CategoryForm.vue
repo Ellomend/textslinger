@@ -28,44 +28,45 @@ export default defineComponent({
   props: {
     category: {
       type: Object as () => CategoryEntity,
-      required: true
+      required: true,
     },
     create: {
       type: Boolean,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
   emits: ['cancel'],
   setup(props, { emit }) {
+    const {
+      addCategoryToStore, updateCategoryInStore, removeCategoryFromStore, categoryFactory,
+    } = useCategoryEntity();
 
-    const { addCategoryToStore, updateCategoryInStore, removeCategoryFromStore, categoryFactory } = useCategoryEntity();
+    const editedCategory = ref<CategoryEntity>(categoryFactory(props.category));
 
-    const editedCategory = ref<CategoryEntity>(categoryFactory(props.category))
-
-    const { validateTitle } = useValidation()
+    const { validateTitle } = useValidation();
 
     // cancel
     const onCancelClicked = () => {
-      emit('cancel')
-    }
+      emit('cancel');
+    };
 
     const onCreateClicked = () => {
-      if (validateTitle(editedCategory.value.title) !== true) return
-      addCategoryToStore(editedCategory.value)
-      emit('cancel')
-    }
+      if (validateTitle(editedCategory.value.title) !== true) return;
+      addCategoryToStore(editedCategory.value);
+      emit('cancel');
+    };
 
     const onUpdateClicked = () => {
-      if (validateTitle(editedCategory.value.title) !== true) return
-      updateCategoryInStore(editedCategory.value)
-      emit('cancel')
-    }
+      if (validateTitle(editedCategory.value.title) !== true) return;
+      updateCategoryInStore(editedCategory.value);
+      emit('cancel');
+    };
 
     const onDeleteClicked = () => {
-      removeCategoryFromStore(editedCategory.value.id)
-      emit('cancel')
-    }
+      removeCategoryFromStore(editedCategory.value.id);
+      emit('cancel');
+    };
 
     return {
       editedCategory,
@@ -73,7 +74,7 @@ export default defineComponent({
       onUpdateClicked,
       onDeleteClicked,
       onCancelClicked,
-      validateTitle
+      validateTitle,
     };
   },
 });

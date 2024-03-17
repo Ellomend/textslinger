@@ -14,12 +14,11 @@ export default defineComponent({
     wrap: {
       type: Boolean,
       required: true,
-      default: false
-    }
+      default: false,
+    },
   },
   emits: ['update:wrap'],
   setup(props, { emit }) {
-
     const wrapValue = ref(props.wrap);
 
     watch(() => props.wrap, (newVal) => {
@@ -31,8 +30,6 @@ export default defineComponent({
     };
 
     return { wrapValue, handleToggle };
-
-
 
     return {};
   },

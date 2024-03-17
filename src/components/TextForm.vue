@@ -25,9 +25,9 @@
 import { useTextEntity } from 'src/composables/general/useTextEntity';
 import { CategoryEntity, TextEntity } from 'src/services/TextService/BaseTypes';
 import { defineComponent, ref } from 'vue';
-import SelectCategoryField from './SelectCategoryField.vue';
 import { useValidation } from 'src/composables/general/useValidation';
 import { QForm } from 'quasar';
+import SelectCategoryField from './SelectCategoryField.vue';
 
 export default defineComponent({
   name: 'TextForm',
@@ -38,31 +38,30 @@ export default defineComponent({
     },
     create: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   emits: ['close'],
   setup(props, { emit }) {
-
     const {
       editingText,
       updateTextInStore,
       addTextToStore,
-      removeTextFromStore
+      removeTextFromStore,
     } = useTextEntity(props.text);
 
-    const { validateTitle, validateContent } = useValidation()
+    const { validateTitle, validateContent } = useValidation();
 
-    const formRef = ref<QForm | null>(null)
+    const formRef = ref<QForm | null>(null);
 
     const onUpdateClick = async () => {
-      if (!await validateForm()) return
-      updateTextInStore(editingText.value)
+      if (!await validateForm()) return;
+      updateTextInStore(editingText.value);
       emit('close');
     };
 
     const onCreateClick = async () => {
-      if (!await validateForm()) return
+      if (!await validateForm()) return;
       addTextToStore(editingText.value);
       emit('close');
     };
@@ -74,19 +73,18 @@ export default defineComponent({
       emit('close');
     };
 
-
     // validate form (validate child fields)
     const validateForm = async (): Promise<boolean> => {
-      if (!formRef.value) return false
-      return await formRef.value.validate(true)
+      if (!formRef.value) return false;
+      return await formRef.value.validate(true);
     };
 
     const onCategorySelected = (category: CategoryEntity) => {
-      editingText.value.category = category.id === editingText.value.category ? null : category.id
+      editingText.value.category = category.id === editingText.value.category ? null : category.id;
       if (!props.create) {
         updateTextInStore(editingText.value);
       }
-    }
+    };
 
     return {
       editingText,
@@ -97,9 +95,9 @@ export default defineComponent({
       onCategorySelected,
       validateTitle,
       validateContent,
-      formRef
+      formRef,
     };
   },
-  components: { SelectCategoryField }
+  components: { SelectCategoryField },
 });
 </script>

@@ -18,20 +18,17 @@ import { CategoryEntity, TextEntity } from 'src/services/TextService/BaseTypes';
 export default defineComponent({
   name: 'SelectCategoryField',
   props: {
-    text: Object as () => TextEntity
+    text: Object as () => TextEntity,
   },
   emits: ['category-select'],
   setup(props, { emit }) {
-
-    const { computedCategories } = useCategoryEntity()
+    const { computedCategories } = useCategoryEntity();
 
     const onCategoryClicked = (category: CategoryEntity) => {
-      emit('category-select', category)
-    }
+      emit('category-select', category);
+    };
 
-    const categoryButtonColor = (category: CategoryEntity): string => {
-      return category.id === props.text?.category ? 'green' : 'blue'
-    }
+    const categoryButtonColor = (category: CategoryEntity): string => (category.id === props.text?.category ? 'green' : 'blue');
 
     return { computedCategories, onCategoryClicked, categoryButtonColor };
   },
