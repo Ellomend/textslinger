@@ -11,14 +11,14 @@
 </template>
 
 <script lang="ts">
-import PopupView from 'src/components/views/PopupView.vue';
-import { defineComponent } from 'vue';
+import PopupView from 'src/components/views/PopupView.vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'IndexPage',
   components: { PopupView },
   setup() {
-    return {};
+    return {}
   },
-});
+})
 </script>

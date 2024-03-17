@@ -1,12 +1,15 @@
 <template>
   <div class="SpacesWrapInput">
-    <q-toggle v-model="wrapValue" label="Wrap text with spaces when copying to clipboard."
-      @update:modelValue="handleToggle" />
+    <q-toggle
+      v-model="wrapValue"
+      label="Wrap text with spaces when copying to clipboard."
+      @update:model-value="handleToggle"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue';
+import { defineComponent, ref, watch } from 'vue'
 
 export default defineComponent({
   name: 'TextEditorComponent',
@@ -19,19 +22,17 @@ export default defineComponent({
   },
   emits: ['update:wrap'],
   setup(props, { emit }) {
-    const wrapValue = ref(props.wrap);
+    const wrapValue = ref(props.wrap)
 
     watch(() => props.wrap, (newVal) => {
-      wrapValue.value = newVal;
-    });
+      wrapValue.value = newVal
+    })
 
     const handleToggle = (value: boolean) => {
-      emit('update:wrap', value);
-    };
+      emit('update:wrap', value)
+    }
 
-    return { wrapValue, handleToggle };
-
-    return {};
+    return { wrapValue, handleToggle }
   },
-});
+})
 </script>

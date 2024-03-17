@@ -7,24 +7,24 @@
 </template>
 
 <script lang="ts">
-import { usePersistedState } from 'src/composables/general/usePersistState';
-import { defineComponent, onMounted, ref } from 'vue';
+import { usePersistedState } from 'src/composables/general/usePersistState'
+import { defineComponent, onMounted, ref } from 'vue'
 
 export default defineComponent({
   name: 'MainLayout',
   setup() {
-    const { initStoresState } = usePersistedState();
+    const { initStoresState } = usePersistedState()
 
-    const initializedFlag = ref<boolean>(false);
+    const initializedFlag = ref<boolean>(false)
 
     onMounted(() => {
       initStoresState()
         .then(() => {
-          initializedFlag.value = true;
-        });
-    });
+          initializedFlag.value = true
+        })
+    })
 
-    return { initializedFlag };
+    return { initializedFlag }
   },
-});
+})
 </script>

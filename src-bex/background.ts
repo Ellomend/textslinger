@@ -1,4 +1,4 @@
-import { bexBackground } from 'quasar/wrappers';
+import { bexBackground } from 'quasar/wrappers'
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.action.onClicked.addListener((/* tab */) => {
@@ -11,9 +11,9 @@ chrome.runtime.onInstalled.addListener(() => {
       (/* newTab */) => {
         // Tab opened.
       },
-    );
-  });
-});
+    )
+  })
+})
 
 declare module '@quasar/app-vite' {
   interface BexEventMap {
@@ -30,43 +30,44 @@ declare module '@quasar/app-vite' {
 
 export default bexBackground((bridge /* , allActiveConnections */) => {
   bridge.on('log', ({ data, respond }) => {
-    console.log(`[BEX] ${data.message}`, ...(data.data || []));
-    respond();
-  });
+    // eslint-disable-next-line no-console
+    console.log(`[BEX] ${data.message}`, ...(data.data || []))
+    respond()
+  })
 
   bridge.on('getTime', ({ respond }) => {
-    respond(Date.now());
-  });
+    respond(Date.now())
+  })
 
   bridge.on('storage.get', ({ data, respond }) => {
-    const { key } = data;
+    const { key } = data
     if (key === null) {
       chrome.storage.local.get(null, (items) => {
         // Group the values up into an array to take advantage of the bridge's chunk splitting.
-        respond(Object.values(items));
-      });
+        respond(Object.values(items))
+      })
     } else {
       chrome.storage.local.get([key], (items) => {
-        respond(items[key]);
-      });
+        respond(items[key])
+      })
     }
-  });
+  })
   // Usage:
   // const { data } = await bridge.send('storage.get', { key: 'someKey' })
 
   bridge.on('storage.set', ({ data, respond }) => {
     chrome.storage.local.set({ [data.key]: data.value }, () => {
-      respond();
-    });
-  });
+      respond()
+    })
+  })
   // Usage:
   // await bridge.send('storage.set', { key: 'someKey', value: 'someValue' })
 
   bridge.on('storage.remove', ({ data, respond }) => {
     chrome.storage.local.remove(data.key, () => {
-      respond();
-    });
-  });
+      respond()
+    })
+  })
   // Usage:
   // await bridge.send('storage.remove', { key: 'someKey' })
 
@@ -89,4 +90,4 @@ export default bexBackground((bridge /* , allActiveConnections */) => {
     }
   })
    */
-});
+})

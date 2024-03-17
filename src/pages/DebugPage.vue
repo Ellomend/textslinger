@@ -12,9 +12,9 @@
 </template>
 
 <script lang="ts">
-import OptionsVIew from 'src/components/views/OptionsVIew.vue';
-import PopupView from 'src/components/views/PopupView.vue';
-import { defineComponent } from 'vue';
+import OptionsVIew from 'src/components/views/OptionsVIew.vue'
+import PopupView from 'src/components/views/PopupView.vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'DebugPage',
@@ -22,5 +22,5 @@ export default defineComponent({
     OptionsVIew,
     PopupView,
   },
-});
+})
 </script>

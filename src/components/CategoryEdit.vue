@@ -1,10 +1,22 @@
 <template>
-  <div class="CategoryEdit" v-if="selectedCategory">
-    <q-btn size="sm" outline color="primary" icon="edit" @click="openDialog = true" />
+  <div
+    v-if="selectedCategory"
+    class="CategoryEdit"
+  >
+    <q-btn
+      size="sm"
+      outline
+      color="primary"
+      icon="edit"
+      @click="openDialog = true"
+    />
     <q-dialog v-model="openDialog">
       <q-card class="less-screen">
         <q-card-section class="q-pt-none">
-          <CategoryForm :category="selectedCategory" @cancel="onCloseEvent" />
+          <CategoryForm
+            :category="selectedCategory"
+            @cancel="onCloseEvent"
+          />
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -12,27 +24,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { useCategoryEntity } from 'src/composables/general/useCategoryEntity';
-import CategoryForm from './CategoryForm.vue';
+import { defineComponent, ref } from 'vue'
+import { useCategoryEntity } from 'src/composables/general/useCategoryEntity'
+import CategoryForm from './CategoryForm.vue'
 
 export default defineComponent({
   name: 'CategoryEdit',
   components: { CategoryForm },
   setup() {
-    const openDialog = ref<boolean>(false);
+    const openDialog = ref<boolean>(false)
 
     const onCloseEvent = () => {
-      openDialog.value = false;
-    };
+      openDialog.value = false
+    }
 
-    const { selectedCategory } = useCategoryEntity();
+    const { selectedCategory } = useCategoryEntity()
 
     return {
       openDialog,
       selectedCategory,
       onCloseEvent,
-    };
+    }
   },
-});
+})
 </script>

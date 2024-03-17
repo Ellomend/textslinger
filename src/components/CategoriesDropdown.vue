@@ -2,15 +2,29 @@
   <div class="row">
     <div class="col-12 flex justify-start">
       <div>
-        <q-btn-dropdown outline size="sm" color="primary" :label="buttonTitle">
+        <q-btn-dropdown
+          outline
+          size="sm"
+          color="primary"
+          :label="buttonTitle"
+        >
           <q-list dense>
-            <q-item clickable v-close-popup v-for="category in computedCategories" :key="category.id"
-              @click="onCategoryClicked(category)">
+            <q-item
+              v-for="category in computedCategories"
+              :key="category.id"
+              v-close-popup
+              clickable
+              @click="onCategoryClicked(category)"
+            >
               <q-item-section>
                 <q-item-label>{{ category.title }}</q-item-label>
               </q-item-section>
               <q-item-section side>
-                <q-icon name="check" color="green" v-if="category.id === selectedCategoryId" />
+                <q-icon
+                  v-if="category.id === selectedCategoryId"
+                  name="check"
+                  color="green"
+                />
               </q-item-section>
             </q-item>
           </q-list>
@@ -22,17 +36,16 @@
       <div>
         <NewCategoryButton />
       </div>
-
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
-import { useCategoryEntity } from 'src/composables/general/useCategoryEntity';
-import { CategoryEntity } from 'src/services/TextService/BaseTypes';
-import CategoryEdit from './CategoryEdit.vue';
-import NewCategoryButton from './NewCategoryButton.vue';
+import { computed, defineComponent } from 'vue'
+import { useCategoryEntity } from 'src/composables/general/useCategoryEntity'
+import { CategoryEntity } from 'src/services/TextService/BaseTypes'
+import CategoryEdit from './CategoryEdit.vue'
+import NewCategoryButton from './NewCategoryButton.vue'
 
 export default defineComponent({
   name: 'CategoriesDropdown',
@@ -43,20 +56,20 @@ export default defineComponent({
       selectedCategoryId,
       selectedCategory,
       computedCategories,
-    } = useCategoryEntity();
+    } = useCategoryEntity()
 
     const onCategoryClicked = (category: CategoryEntity) => {
-      selectCategory(category.id);
-    };
+      selectCategory(category.id)
+    }
 
-    const buttonTitle = computed(() => selectedCategory.value?.title || 'Select category');
+    const buttonTitle = computed(() => selectedCategory.value?.title || 'Select category')
 
     return {
       computedCategories,
       onCategoryClicked,
       selectedCategoryId,
       buttonTitle,
-    };
+    }
   },
-});
+})
 </script>

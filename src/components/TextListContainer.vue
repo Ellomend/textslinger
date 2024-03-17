@@ -12,18 +12,18 @@
 </template>
 
 <script lang="ts">
-import { useTextsStore } from 'src/stores/texts-store';
-import { defineComponent, computed } from 'vue';
-import TextList from './TextList.vue';
-import NewTextButton from './NewTextButton.vue';
+import { useTextsStore } from 'src/stores/texts-store'
+import { defineComponent, computed } from 'vue'
+import TextList from './TextList.vue'
+import NewTextButton from './NewTextButton.vue'
 
 export default defineComponent({
   name: 'TextListContainer',
   components: { TextList, NewTextButton },
   setup() {
-    const textsStore = useTextsStore();
-    const filteredTexts = computed(() => textsStore.listTexts);
-    return { filteredTexts };
+    const textsStore = useTextsStore()
+    const filteredTexts = computed(() => textsStore.listTexts)
+    return { filteredTexts }
   },
-});
+})
 </script>

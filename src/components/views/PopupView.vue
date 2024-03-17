@@ -16,10 +16,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import CategoriesDropdown from '../CategoriesDropdown.vue';
-import TextListContainer from '../TextListContainer.vue';
-import TextSearch from '../TextSearch.vue';
+import { defineComponent } from 'vue'
+import CategoriesDropdown from '../CategoriesDropdown.vue'
+import TextListContainer from '../TextListContainer.vue'
+import TextSearch from '../TextSearch.vue'
 
 export default defineComponent({
   name: 'PopupView',
@@ -28,5 +28,5 @@ export default defineComponent({
     CategoriesDropdown,
     TextListContainer,
   },
-});
+})
 </script>

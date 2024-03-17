@@ -10,11 +10,11 @@
 
 <script lang="ts">
 
-import { defineComponent } from 'vue';
-import OptionsView from '../components/views/OptionsVIew.vue';
+import { defineComponent } from 'vue'
+import OptionsView from '../components/views/OptionsVIew.vue'
 
 export default defineComponent({
   name: 'OptionsPage',
   components: { OptionsView },
-});
+})
 </script>

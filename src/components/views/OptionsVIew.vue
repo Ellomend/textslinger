@@ -4,11 +4,16 @@
       <div class="col-12">
         <q-card>
           <q-card-section>
-            <div class="text-h6">Options:</div>
+            <div class="text-h6">
+              Options:
+            </div>
           </q-card-section>
 
           <q-card-section>
-            <SpacesWrapInput :wrap="wrapWithSpaces" @update:wrap="setWrapWithSpaces" />
+            <SpacesWrapInput
+              :wrap="wrapWithSpaces"
+              @update:wrap="setWrapWithSpaces"
+            />
           </q-card-section>
           <q-separator dark />
         </q-card>
@@ -18,9 +23,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { useOptions } from 'src/composables/general/useOptions';
-import SpacesWrapInput from '../SpacesWrapInput.vue';
+import { defineComponent } from 'vue'
+import { useOptions } from 'src/composables/general/useOptions'
+import SpacesWrapInput from '../SpacesWrapInput.vue'
 
 export default defineComponent({
   name: 'OptionsView',
@@ -28,12 +33,12 @@ export default defineComponent({
     SpacesWrapInput,
   },
   setup: () => {
-    const { wrapWithSpaces, setWrapWithSpaces } = useOptions();
+    const { wrapWithSpaces, setWrapWithSpaces } = useOptions()
 
     return {
       wrapWithSpaces,
       setWrapWithSpaces,
-    };
+    }
   },
-});
+})
 </script>

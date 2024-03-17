@@ -1,4 +1,4 @@
-import { CategoryEntity, TextEntity } from '../TextService/BaseTypes';
+import { CategoryEntity, TextEntity } from '../TextService/BaseTypes'
 
 export interface TextsStateData {
   texts: TextEntity[]
@@ -19,37 +19,37 @@ export type PersistanceKeys = 'texts' | 'options'
 export class StorePersistenceService {
   static async saveData(data: PersistData, key: PersistanceKeys): Promise<void> {
     return new Promise((resolve, reject) => {
-      const jsonData = JSON.stringify(data); // Serialize data to JSON string
+      const jsonData = JSON.stringify(data) // Serialize data to JSON string
       chrome.storage.local.set({ [key]: jsonData }, () => {
         if (chrome.runtime.lastError) {
-          reject(chrome.runtime.lastError);
+          reject(chrome.runtime.lastError)
         } else {
-          resolve();
+          resolve()
         }
-      });
-    });
+      })
+    })
   }
 
   static async loadData<T>(key: PersistanceKeys): Promise<T | null> {
     return new Promise((resolve, reject) => {
       chrome.storage.local.get(key, (result) => {
         if (chrome.runtime.lastError) {
-          reject(chrome.runtime.lastError);
+          reject(chrome.runtime.lastError)
         } else {
-          const jsonData = result[key];
+          const jsonData = result[key]
           if (jsonData) {
             try {
-              const data = JSON.parse(jsonData) as T; // Parse JSON string back into object
-              resolve(data);
+              const data = JSON.parse(jsonData) as T // Parse JSON string back into object
+              resolve(data)
             } catch (error) {
-              reject(error); // Handle parsing error
+              reject(error) // Handle parsing error
             }
           } else {
-            resolve(null);
+            resolve(null)
           }
         }
-      });
-    });
+      })
+    })
   }
 
   // Method to clear storage
@@ -57,11 +57,11 @@ export class StorePersistenceService {
     return new Promise((resolve, reject) => {
       chrome.storage.local.remove(key, () => {
         if (chrome.runtime.lastError) {
-          reject(chrome.runtime.lastError);
+          reject(chrome.runtime.lastError)
         } else {
-          resolve();
+          resolve()
         }
-      });
-    });
+      })
+    })
   }
 }

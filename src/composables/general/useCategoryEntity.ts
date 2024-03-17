@@ -1,45 +1,47 @@
-import { computed, ref } from 'vue';
-import { useTextsStore } from 'src/stores/texts-store';
-import { TextService } from 'src/services/TextService/TextService';
-import { CategoryEntity, TextEntity } from '../../services/TextService/BaseTypes';
+import { computed, ref } from 'vue'
+import { useTextsStore } from 'src/stores/texts-store'
+import { TextService } from 'src/services/TextService/TextService'
+import { CategoryEntity, TextEntity } from '../../services/TextService/BaseTypes'
 
 export function useCategoryEntity(categoryProp: CategoryEntity | null | undefined = null) {
-  const textsStore = useTextsStore();
+  const textsStore = useTextsStore()
 
-  const editedCategoryFactory = (category: CategoryEntity | null | undefined): CategoryEntity => TextService.categoryFactory(category || {});
+  function editedCategoryFactory(category: CategoryEntity | null | undefined): CategoryEntity {
+    return TextService.categoryFactory(category || {})
+  }
 
-  const editedCategory = ref<CategoryEntity>(editedCategoryFactory(categoryProp));
+  const editedCategory = ref<CategoryEntity>(editedCategoryFactory(categoryProp))
 
-  const { categoryFactory } = TextService;
+  const { categoryFactory } = TextService
 
   const updateCategoryInStore = (category: CategoryEntity): void => {
-    textsStore.updateCategory(category);
-  };
+    textsStore.updateCategory(category)
+  }
 
   const removeCategoryFromStore = (categoryId: string): void => {
-    textsStore.removeCategory(categoryId);
-  };
+    textsStore.removeCategory(categoryId)
+  }
 
   const addCategoryToStore = (category: CategoryEntity): void => {
-    textsStore.addCategory(category);
-  };
+    textsStore.addCategory(category)
+  }
 
   const selectCategory = (categoryId: string | null | undefined) => {
-    textsStore.selectCategory(categoryId || null);
-  };
+    textsStore.selectCategory(categoryId || null)
+  }
 
   const updateTextCategory = (text: TextEntity, categoryId: string): void => {
-    const newCategoryId = text.id === categoryId ? null : categoryId;
+    const newCategoryId = text.id === categoryId ? null : categoryId
     const updatedText: TextEntity = {
       ...text,
       category: newCategoryId,
-    };
-    textsStore.updateText(updatedText);
-  };
+    }
+    textsStore.updateText(updatedText)
+  }
 
-  const selectedCategory = computed(() => textsStore.getSelectedCategory);
+  const selectedCategory = computed(() => textsStore.getSelectedCategory)
 
-  const computedCategories = computed(() => textsStore.categories);
+  const computedCategories = computed(() => textsStore.categories)
 
   return {
     editedCategory,
@@ -52,5 +54,5 @@ export function useCategoryEntity(categoryProp: CategoryEntity | null | undefine
     selectedCategory,
     categoryFactory,
     updateTextCategory,
-  };
+  }
 }
