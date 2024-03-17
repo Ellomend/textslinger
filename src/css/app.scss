@@ -1,1 +1,27 @@
 // app global css in SCSS form
+
+/* 
+fix for BEX popup size problem with open dialogs
+
+steps to reproduce:
+- remove "position: static !important;"
+- open q-dialog on page -> class to body will be added (q-body--prevent-scroll)
+- when running in BEX mode popup window will be 100px wide, ignoring stretching by content
+TODO: find a better solution
+*/
+body.bex.q-body--prevent-scroll {
+  position: static !important;
+}
+
+/* 
+stretching BEX popup window
+setting width and height
+TODO: find a better solution
+
+maybe make sense to do it pogrammatically, will allow for resizing based on logical reasons.
+leaving like this for now
+*/
+body.bex {
+  min-width: 600px;
+  min-height: 600px;
+}
