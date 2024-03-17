@@ -1,10 +1,5 @@
-import { faker } from '@faker-js/faker'
 import { uid } from 'quasar'
 import { TextEntity } from './BaseTypes'
-
-export const randomTitle = (): string => faker.lorem.words({ min: 1, max: 3 })
-
-export const randomParagraph = (number = 3): string => faker.lorem.paragraph(number)
 
 export const randomUID = (): string => uid()
 

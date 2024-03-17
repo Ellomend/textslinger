@@ -1,14 +1,14 @@
 import {
   CategoryEntity, CategoryEntityStub, TextEntity, TextEntityStub,
 } from './BaseTypes'
-import { randomParagraph, randomTitle, randomUID } from './TextUtils'
+import { randomUID } from './TextUtils'
 
 export class TextService {
   static textFactory(text: TextEntityStub = {}): TextEntity {
     return {
       id: randomUID(),
-      title: randomTitle(),
-      content: randomParagraph(),
+      title: '',
+      content: '',
       category: null,
       ...text,
     }
@@ -18,7 +18,7 @@ export class TextService {
   static categoryFactory(category: CategoryEntityStub = {}): CategoryEntity {
     const res = {
       id: randomUID(),
-      title: randomTitle(),
+      title: '',
       ...category,
     }
     return res
