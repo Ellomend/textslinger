@@ -15,7 +15,7 @@
         <q-card-section class="q-pt-none">
           <CategoryForm
             :category="selectedCategory"
-            @cancel="onCloseEvent"
+            @close="onCloseEvent"
           />
         </q-card-section>
       </q-card>

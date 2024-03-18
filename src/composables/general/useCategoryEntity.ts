@@ -1,18 +1,12 @@
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useTextsStore } from 'src/stores/texts-store'
 import { TextService } from 'src/services/TextService/TextService'
 import { CategoryEntity, TextEntity } from '../../services/TextService/BaseTypes'
 
-export function useCategoryEntity(categoryProp: CategoryEntity | null | undefined = null) {
+export function useCategoryEntity() {
   const textsStore = useTextsStore()
 
-  function editedCategoryFactory(category: CategoryEntity | null | undefined): CategoryEntity {
-    return TextService.categoryFactory(category || {})
-  }
-
-  const editedCategory = ref<CategoryEntity>(editedCategoryFactory(categoryProp))
-
-  const { categoryFactory } = TextService
+  const { createCategory } = TextService
 
   const updateCategoryInStore = (category: CategoryEntity): void => {
     textsStore.updateCategory(category)
@@ -44,7 +38,6 @@ export function useCategoryEntity(categoryProp: CategoryEntity | null | undefine
   const computedCategories = computed(() => textsStore.categories)
 
   return {
-    editedCategory,
     updateCategoryInStore,
     removeCategoryFromStore,
     addCategoryToStore,
@@ -52,7 +45,7 @@ export function useCategoryEntity(categoryProp: CategoryEntity | null | undefine
     selectedCategoryId: textsStore.selectedId,
     computedCategories,
     selectedCategory,
-    categoryFactory,
+    createCategory,
     updateTextCategory,
   }
 }

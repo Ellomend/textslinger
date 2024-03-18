@@ -18,7 +18,7 @@
           <CategoryForm
             :category="newCategory"
             :create="true"
-            @cancel="onClose"
+            @close="onClose"
           />
         </q-card-section>
       </q-card>
@@ -40,9 +40,9 @@ export default defineComponent({
 
     const onClose = () => { openDialog.value = false }
 
-    const { categoryFactory } = useCategoryEntity()
+    const { createCategory } = useCategoryEntity()
 
-    const newCategory = ref<CategoryEntity>(categoryFactory({
+    const newCategory = ref<CategoryEntity>(createCategory({
       title: '',
     }))
 

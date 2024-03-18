@@ -55,7 +55,7 @@ export const useTextsStore = defineStore('texts', () => {
   }
 
   // list texts
-  const listTexts = computed(() => {
+  const filteredTexts = computed(() => {
     const resTexts = texts.value.filter((text) => {
       // TODO: fix this later
       // eslint-disable-next-line max-len
@@ -136,7 +136,7 @@ export const useTextsStore = defineStore('texts', () => {
     initializeState,
     clearPersistedState,
     texts,
-    listTexts,
+    filteredTexts,
     searchString,
     updateSearchString,
     selectCategory,

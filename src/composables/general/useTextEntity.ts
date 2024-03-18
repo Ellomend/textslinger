@@ -9,14 +9,14 @@ export function useTextEntity(textProp: TextEntity | null | undefined = null) {
   const textsStore = useTextsStore()
   const optionsStore = useOptionsStore()
 
-  const { textFactory } = TextService
+  const { createText } = TextService
   const wrapWithSpaces = computed(() => optionsStore.wrapWithSpaces)
 
-  function editingTextFactory(text: TextEntity | null | undefined): TextEntity {
-    return textFactory(text || {})
+  function editingCreateText(text: TextEntity | null | undefined): TextEntity {
+    return createText(text || {})
   }
 
-  const editingText = ref<TextEntity>(editingTextFactory(textProp))
+  const editingText = ref<TextEntity>(editingCreateText(textProp))
 
   const updateTextInStore = (text: TextEntity): void => {
     textsStore.updateText(text)
@@ -35,12 +35,17 @@ export function useTextEntity(textProp: TextEntity | null | undefined = null) {
     copyToClipboard(string)
   }
 
+  const filteredTexts = computed(() => textsStore.filteredTexts)
+  const texts = computed(() => textsStore.texts)
+
   return {
     editingText,
     updateTextInStore,
     removeTextFromStore,
     addTextToStore,
-    textFactory,
+    createText,
     textToClipBoard,
+    filteredTexts,
+    texts,
   }
 }

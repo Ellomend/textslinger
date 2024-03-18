@@ -25,4 +25,4 @@ Ability to manage list of Texts categories (Category) and assigning Texts to Cat
 Ability to modify Tile of Texts, Text content and assigned Category. Also to delete Text and create new.
 Ability to create Text from selection on page.
 Ability to modify Category, also deleting and creating new Category.
-Existence of default category (Default Category), to which assigned Texts previously assigned to deleted category.
+

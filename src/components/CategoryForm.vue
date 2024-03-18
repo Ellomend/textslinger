@@ -71,36 +71,38 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['cancel'],
+  emits: ['close'],
   setup(props, { emit }) {
     const {
-      addCategoryToStore, updateCategoryInStore, removeCategoryFromStore, categoryFactory,
+      addCategoryToStore, updateCategoryInStore, removeCategoryFromStore, createCategory,
     } = useCategoryEntity()
 
-    const editedCategory = ref<CategoryEntity>(categoryFactory(props.category))
+    const editedCategory = ref<CategoryEntity>(createCategory(props.category))
 
     const { validateTitle } = useValidation()
 
     // cancel
     const onCancelClicked = () => {
-      emit('cancel')
+      emit('close')
     }
 
     const onCreateClicked = () => {
       if (validateTitle(editedCategory.value.title) !== true) return
       addCategoryToStore(editedCategory.value)
-      emit('cancel')
+      editedCategory.value = createCategory()
+
+      emit('close')
     }
 
     const onUpdateClicked = () => {
       if (validateTitle(editedCategory.value.title) !== true) return
       updateCategoryInStore(editedCategory.value)
-      emit('cancel')
+      emit('close')
     }
 
     const onDeleteClicked = () => {
       removeCategoryFromStore(editedCategory.value.id)
-      emit('cancel')
+      emit('close')
     }
 
     return {

@@ -4,7 +4,10 @@
 
 import { bexContent } from 'quasar/wrappers'
 
+console.log('mcs1')
+
 export default bexContent((/* bridge */) => {
+  console.log('mcs2')
   // Hook into the bridge to listen for events sent from the client BEX.
   /*
   bridge.on('some.event', event => {

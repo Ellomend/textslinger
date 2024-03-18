@@ -33,17 +33,17 @@ export default defineComponent({
   name: 'NewTextButton',
   components: { TextForm },
   setup() {
-    const { addTextToStore, textFactory } = useTextEntity(null)
+    const { addTextToStore, createText } = useTextEntity(null)
 
     const openDialog = ref<boolean>(false)
-    const newText = ref<TextEntity>(textFactory({
+    const newText = ref<TextEntity>(createText({
       title: '',
       content: '',
     }))
 
     const onClose = () => {
       openDialog.value = false
-      newText.value = textFactory({
+      newText.value = createText({
         title: '',
         content: '',
       })
