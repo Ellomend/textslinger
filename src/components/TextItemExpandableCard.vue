@@ -63,6 +63,7 @@ import { TextEntity } from 'src/services/TextService/BaseTypes'
 import { computed, defineComponent, ref } from 'vue'
 import { useStringUtils } from 'src/composables/general/useStringUtils'
 import { useTextEntity } from 'src/composables/general/useTextEntity'
+import { useQuasar } from 'quasar'
 import TextItemEditButton from './TextItemEditButton.vue'
 
 export default defineComponent({
@@ -83,9 +84,20 @@ export default defineComponent({
 
     // copy to clipboard
     const { textToClipBoard } = useTextEntity(null)
+    const $q = useQuasar()
 
     const copyText = (text: string) => {
       textToClipBoard(text)
+
+      $q.notify({
+        message: 'Copied to clipboard!',
+        type: 'positive',
+        icon: 'check',
+        color: 'green',
+        position: 'top',
+        timeout: 1000,
+        group: false,
+      })
     }
 
     // text display

@@ -18,5 +18,10 @@
   },
   "[typescript]": {
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-  }
+  },
+  "cSpell.words": [
+    "composables",
+    "pinia",
+    "ruleset"
+  ]
 }

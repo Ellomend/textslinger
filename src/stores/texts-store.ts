@@ -113,14 +113,14 @@ export const useTextsStore = defineStore('texts', () => {
     selectedCategoryId.value = null
 
     // remove link to deleted category from texts
-    texts.value = texts.value.map((itext) => {
-      if (itext.category === categoryId) {
+    texts.value = texts.value.map((iText) => {
+      if (iText.category === categoryId) {
         return {
-          ...itext,
+          ...iText,
           category: null,
         }
       }
-      return itext
+      return iText
     })
   }
 
