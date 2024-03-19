@@ -1,6 +1,23 @@
+/* eslint-disable no-console */
 import { bexBackground } from 'quasar/wrappers'
+import { MenuManager } from './core/tools/menu'
+
+console.log('bg1')
+
+// onInstalled
+// onConnect
+// onConnectExternal
+// onMessage
+// onMessageExternal
+// onStartup
+// onSuspend
+// onUserScriptConnect
+// onUserScriptMessage
+// sendMessage
 
 chrome.runtime.onInstalled.addListener(() => {
+  console.log('bg2 onInstalled')
+
   chrome.action.onClicked.addListener((/* tab */) => {
     // Opens our extension in a new browser window.
     // Only if a popup isn't defined in the manifest.
@@ -28,65 +45,42 @@ declare module '@quasar/app-vite' {
   }
 }
 
+// this one is executed every time new page opens.
 export default bexBackground((bridge /* , allActiveConnections */) => {
-  bridge.on('log', ({ data, respond }) => {
-    console.log(`[BEX] ${data.message}`, ...(data.data || []))
-    respond()
-  })
+  console.log('bg3 bex background')
 
-  bridge.on('getTime', ({ respond }) => {
-    respond(Date.now())
-  })
+  console.log('chrome', chrome)
 
-  bridge.on('storage.get', ({ data, respond }) => {
-    const { key } = data
-    if (key === null) {
-      chrome.storage.local.get(null, (items) => {
-        // Group the values up into an array to take advantage of the bridge's chunk splitting.
-        respond(Object.values(items))
-      })
-    } else {
-      chrome.storage.local.get([key], (items) => {
-        respond(items[key])
-      })
-    }
-  })
-  // Usage:
-  // const { data } = await bridge.send('storage.get', { key: 'someKey' })
+  console.log('chrome.contextMenus', chrome.contextMenus)
+  console.log('chrome.runtime', chrome.runtime)
 
-  bridge.on('storage.set', ({ data, respond }) => {
-    chrome.storage.local.set({ [data.key]: data.value }, () => {
-      respond()
-    })
-  })
-  // Usage:
-  // await bridge.send('storage.set', { key: 'someKey', value: 'someValue' })
+  // loading data from storage
+  console.log('remove all menu')
+  const manager = new MenuManager()
+  manager.createMenu()
 
-  bridge.on('storage.remove', ({ data, respond }) => {
-    chrome.storage.local.remove(data.key, () => {
-      respond()
-    })
-  })
-  // Usage:
-  // await bridge.send('storage.remove', { key: 'someKey' })
+  // Add your context menu creation logic here
+  // Step 1: Create the parent menu item
+  // chrome.contextMenus.create({
+  //   id: 'parentMenuItem',
+  //   title: rootMenuName,
+  //   contexts: ['all'], // Context where this menu will appear
+  // })
 
-  /*
-  // EXAMPLES
-  // Listen to a message from the client
-  bridge.on('test', d => {
-    console.log(d)
-  })
+  // // Step 2: Create submenu items
+  // chrome.contextMenus.create({
+  //   id: 'submenuItem1',
+  //   parentId: 'parentMenuItem',
+  //   title: 'Submenu Item 1',
+  //   contexts: ['all'],
+  // })
 
-  // Send a message to the client based on something happening.
-  chrome.tabs.onCreated.addListener(tab => {
-    bridge.send('browserTabCreated', { tab })
-  })
+  // chrome.contextMenus.create({
+  //   id: 'submenuItem2',
+  //   parentId: 'parentMenuItem',
+  //   title: 'Submenu Item 2',
+  //   contexts: ['all'],
+  // })
 
-  // Send a message to the client based on something happening.
-  chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    if (changeInfo.url) {
-      bridge.send('browserTabUpdated', { tab, changeInfo })
-    }
-  })
-   */
+  console.log('bg4 context menu created')
 })

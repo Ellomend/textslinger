@@ -1,3 +1,4 @@
+import { useQuasar } from 'quasar'
 import { CategoryEntity, TextEntity } from '../TextService/BaseTypes'
 import { ChromeStorageStrategy } from './ChromeStorage'
 import { LocalStorageStrategy } from './LocalStorage'
@@ -26,14 +27,19 @@ export interface StorageStrategy {
 export class StorePersistenceService {
   private static storageType: StorageStrategy
 
-  static isDevelopmentMode(): boolean {
-    return process.env.NODE_ENV !== 'production'
+  static isBexMode(): boolean {
+    const $q = useQuasar()
+    return !!$q.platform.is.bex
   }
 
-  static initialize() {
-    this.storageType = this.isDevelopmentMode()
-      ? new LocalStorageStrategy()
-      : new ChromeStorageStrategy()
+  static initialize(forceChromeStorage = false) {
+    if (forceChromeStorage) {
+      this.storageType = new ChromeStorageStrategy()
+      return
+    }
+    this.storageType = this.isBexMode()
+      ? new ChromeStorageStrategy()
+      : new LocalStorageStrategy()
   }
 
   static async saveData(data: PersistData, key: PersistanceKeys): Promise<void> {

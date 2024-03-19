@@ -45,24 +45,6 @@ typescript
 pinia
 quasar framework
 
-### TODO
-
-[V] Change text category
-
-[V] Add new texts and categories
-
-[V] Search
-
-[V] option and popup pages
-
-[V] extension store state persistance
-
-[V] Copy to clipboard
-
-[V] fix new text category select error
-
-[V] Wrap with spaces toggle on option page
-
 [ ] UX/UI improvements
 [V] - Notifications
 [V] - Expandable
@@ -73,11 +55,6 @@ quasar framework
 [V] - Forms (colors)
 [V] - Positions and alignments
 [V] - Extension icon
+[ ] - Context menu integration
 [ ] - ReadMe
 
-[ ] project cleanup
-
-### For future versions
-
-[ ] Text input sanitization
-[ ] Add text from selection
