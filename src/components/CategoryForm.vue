@@ -74,7 +74,10 @@ export default defineComponent({
   emits: ['close'],
   setup(props, { emit }) {
     const {
-      addCategoryToStore, updateCategoryInStore, removeCategoryFromStore, createCategory,
+      addCategoryToStore,
+      updateCategoryInStore,
+      removeCategoryFromStore,
+      createCategory,
     } = useCategoryEntity()
 
     const editedCategory = ref<CategoryEntity>(createCategory(props.category))
@@ -89,8 +92,6 @@ export default defineComponent({
     const onCreateClicked = () => {
       if (validateTitle(editedCategory.value.title) !== true) return
       addCategoryToStore(editedCategory.value)
-      editedCategory.value = createCategory()
-
       emit('close')
     }
 

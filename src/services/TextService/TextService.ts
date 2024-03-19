@@ -1,5 +1,5 @@
 import {
-  CategoryEntity, TextEntity, TextEntityStub,
+  CategoryEntity, CategoryEntityStub, TextEntity, TextEntityStub,
 } from './BaseTypes'
 import { randomUID } from './TextUtils'
 
@@ -15,10 +15,11 @@ export class TextService {
   }
 
   // create category
-  static createCategory(): CategoryEntity {
+  static createCategory(category: CategoryEntityStub = {}): CategoryEntity {
     const res = {
       id: randomUID(),
       title: '',
+      ...category,
     }
 
     return res

@@ -37,14 +37,14 @@ export default defineComponent({
   components: { CategoryForm },
   setup() {
     const openDialog = ref<boolean>(false)
-
-    const onClose = () => { openDialog.value = false }
-
     const { createCategory } = useCategoryEntity()
 
-    const newCategory = ref<CategoryEntity>(createCategory({
-      title: '',
-    }))
+    const newCategory = ref<CategoryEntity>(createCategory())
+
+    const onClose = () => {
+      openDialog.value = false
+      newCategory.value = createCategory()
+    }
 
     return {
       openDialog,

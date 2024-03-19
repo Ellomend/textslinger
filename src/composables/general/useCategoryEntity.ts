@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { useTextsStore } from 'src/stores/texts-store'
 import { TextService } from 'src/services/TextService/TextService'
-import { CategoryEntity, TextEntity } from '../../services/TextService/BaseTypes'
+import { CategoryEntity, CategoryEntityStub, TextEntity } from '../../services/TextService/BaseTypes'
 
 export function useCategoryEntity() {
   const textsStore = useTextsStore()
