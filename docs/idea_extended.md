@@ -55,6 +55,6 @@ quasar framework
 [V] - Forms (colors)
 [V] - Positions and alignments
 [V] - Extension icon
-[ ] - Context menu integration
+[V] - Context menu integration
 [ ] - ReadMe
 

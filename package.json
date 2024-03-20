@@ -1,6 +1,6 @@
 {
   "name": "textslinger",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Saving frequently used text fragments for future reuse.",
   "productName": "Text Slinger",
   "author": "Ellomend <mrsotona@gmail.com>",
@@ -8,8 +8,8 @@
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue ./",
     "test": "echo \"No test specified\" && exit 0",
-    "dev": "quasar dev",
-    "build": "quasar build"
+    "dev": "quasar dev -m bex",
+    "build": "quasar build -m bex"
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",

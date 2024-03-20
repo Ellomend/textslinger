@@ -1,17 +1,17 @@
-# Text Slinger (textslinger)
+# Text Slinger
 
 Saving frequently used text fragments for future reuse.
 
 ## Install the dependencies
 ```bash
-yarn
-# or
 npm install
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 ```bash
-quasar dev
+npm run dev
+# or
+quasar dev -m bex
 ```
 
 
@@ -22,12 +22,36 @@ yarn lint
 npm run lint
 ```
 
-
-
 ### Build the app for production
 ```bash
-quasar build
+npm run build
+# or
+quasar build -m bex
 ```
 
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+Text Slinger
+Text saving browser extension.
+
+## Idea
+
+### Short description:
+
+Saving frequently used text fragments for future reuse.
+
+### Description:
+
+While browsing internet often needed to input same text over and over. Like search clauses, inputs, form fills, comments and messages. Sometimes solved by resorting to create text files with reused text, this could be inconvenient.
+This extension is aim to solve this problem by providing user friendly system for managing reusable texts directly in browser.
+
+
+TODO:
+- remove dom.ts
+- optimize code across
+- bump version
+- go through TODOs
+- add text with no category
+- show text item category in list
+
+IN FUTURE VERSIONS
+- import / export
+- texts sequence with drag and drop reorder
