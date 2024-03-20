@@ -1,12 +1,13 @@
 <template>
-  <div class="TextItemExpandableCard q-mb-sm">
+  <div class="TextItemExpandableCard q-mb-md">
     <q-card
       bordered
+      flat
     >
       <div class="row">
-        <div class="col-1 bb flex flex items-center justify-center">
-          <div class="row gg">
-            <div class="col-12 flex items-center justify-center rr">
+        <div class="col-1  flex flex items-center justify-center">
+          <div class="row ">
+            <div class="col-12 flex items-center justify-center ">
               <q-btn
                 outline
                 color="green"
@@ -18,7 +19,7 @@
             </div>
             <div
               v-if="isLong"
-              class="col-12 flex items-center justify-center rr"
+              class="col-12 flex items-center justify-center "
             >
               <q-btn
                 v-if="isLong"
@@ -42,10 +43,9 @@
               {{ text?.title }}
             </div>
             <div
-              v-if="!isLong"
               class="text-caption text-grey q-my-xs"
             >
-              {{ text.content }}
+              {{ textDisplay(text.content) }}
             </div>
           </div>
         </div>
@@ -119,7 +119,7 @@ export default defineComponent({
     // TODO: do we really want this abstraction ???
     // we probably should just do str logic here
     // maybe later
-    const textDisplay = (content: string) => textContentStart(content, 200)
+    const textDisplay = (content: string) => textContentStart(content, 150)
 
     return {
       expanded, copyText, textDisplay, isLong,
