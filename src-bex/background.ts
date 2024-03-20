@@ -1,19 +1,8 @@
 /* eslint-disable no-console */
 import { bexBackground } from 'quasar/wrappers'
-import { MenuManager } from './core/tools/menu'
+import { MenuManager } from './core/tools/MenuManager'
 
 console.log('bg1')
-
-// onInstalled
-// onConnect
-// onConnectExternal
-// onMessage
-// onMessageExternal
-// onStartup
-// onSuspend
-// onUserScriptConnect
-// onUserScriptMessage
-// sendMessage
 
 chrome.runtime.onInstalled.addListener(() => {
   console.log('bg2 onInstalled')
@@ -56,31 +45,6 @@ export default bexBackground((bridge /* , allActiveConnections */) => {
 
   // loading data from storage
   console.log('remove all menu')
-  const manager = new MenuManager()
-  manager.createMenu()
-
-  // Add your context menu creation logic here
-  // Step 1: Create the parent menu item
-  // chrome.contextMenus.create({
-  //   id: 'parentMenuItem',
-  //   title: rootMenuName,
-  //   contexts: ['all'], // Context where this menu will appear
-  // })
-
-  // // Step 2: Create submenu items
-  // chrome.contextMenus.create({
-  //   id: 'submenuItem1',
-  //   parentId: 'parentMenuItem',
-  //   title: 'Submenu Item 1',
-  //   contexts: ['all'],
-  // })
-
-  // chrome.contextMenus.create({
-  //   id: 'submenuItem2',
-  //   parentId: 'parentMenuItem',
-  //   title: 'Submenu Item 2',
-  //   contexts: ['all'],
-  // })
-
+  const manager = new MenuManager(bridge)
   console.log('bg4 context menu created')
 })
