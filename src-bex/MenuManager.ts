@@ -1,7 +1,7 @@
 import { StorePersistenceService, TextsStateData } from 'src/services/StorePersistanceService/StorePersistanceService'
 import { TextEntity } from 'src/services/TextService/BaseTypes'
 import { BexBridge } from '@quasar/app-vite/types/bex'
-import { MainMenuItem, MenuItem, SelectedTextMenuInfo } from '../types'
+import { MainMenuItem, MenuItem, SelectedTextMenuInfo } from './types'
 
 export class MenuManager {
   // local data state
@@ -9,7 +9,7 @@ export class MenuManager {
     categories: [], texts: [], searchString: null, selectedCategoryId: null,
   }
 
-  private bridge
+  private bridge: BexBridge | undefined
 
   private mainMenuIdSelect = 'texts-slinger-main-menu-select'
 
@@ -17,36 +17,22 @@ export class MenuManager {
 
   private storageService = StorePersistenceService
 
-  constructor(bridge: BexBridge) {
-    this.bridge = bridge
+  constructor() {
     this.addListeners()
-    this.storageService.initialize(true)
-    this.loadDataFromStorage()
+    this.storageService.initialize()
   }
 
-  loadDataFromStorage() {
-    this.storageService.loadData<TextsStateData>('texts')
-      .then((state) => {
-        console.log('loaded state', state)
-
-        this.state = {
-          categories: [],
-          texts: [],
-          searchString: null,
-          selectedCategoryId: null,
-          ...state,
-        }
-        this.createMenu()
-      })
-      .catch(() => {
-        throw new Error('Error loading data from storage')
-      })
+  initialize(bridge: BexBridge) {
+    this.bridge = bridge
   }
 
   // add listeners
   addListeners() {
-    chrome.contextMenus.onClicked.addListener((info, tab) => {
-      console.log('catched click, handling', info)
+    const oc = chrome.contextMenus.onClicked
+    console.warn('MM: add listeners')
+
+    oc.addListener((info, tab) => {
+      console.warn('MM: catched click handling', info)
       const isTextSelected = info.editable === false
       && info.selectionText
       && info.selectionText.length > 0
@@ -54,13 +40,36 @@ export class MenuManager {
       const isFieldClicked = info.editable === true
 
       if (isTextSelected) {
-        console.log('category clicked', info)
+        console.log('MM: category clicked', info)
         this.saveText(info)
       } else if (isFieldClicked) {
-        console.log('text clicked, send to dom')
+        console.log('MM: text clicked, send to dom')
         this.insertTextClicked(info)
       }
     })
+  }
+
+  async loadStateFromStorage() {
+    const state = await this.storageService.loadData<TextsStateData>('texts')
+    console.log('MM: loaded state', state)
+
+    this.state = {
+      categories: [],
+      texts: [],
+      searchString: null,
+      selectedCategoryId: null,
+      ...state,
+    }
+    return state
+  }
+
+  /**
+   * Regenerates the menu by loading state from storage and then creating the menu.
+   *
+   */
+  reGenerateMenu() {
+    this.loadStateFromStorage()
+      .then(() => this.createMenu())
   }
 
   /*
@@ -70,18 +79,8 @@ export class MenuManager {
   createMenu() {
     // clear all menu items
     chrome.contextMenus.removeAll()
-    console.log('create menu')
+    console.log('MM: create menu')
 
-    this.makeAllMenuItems().forEach((menuItem) => {
-      console.log('create menu item', menuItem)
-
-      chrome.contextMenus.create(menuItem)
-    })
-
-    console.log('menu created')
-  }
-
-  makeAllMenuItems(): MenuItem[] {
     const menuItems: MenuItem[] = [
       {
         id: this.mainMenuIdSelect,
@@ -97,7 +96,13 @@ export class MenuManager {
       ...this.textsOptions(),
     ]
 
-    return menuItems
+    menuItems.forEach((menuItem) => {
+      console.log('MM: create menu item', menuItem)
+
+      chrome.contextMenus.create(menuItem)
+    })
+
+    console.log('MM: menu created')
   }
 
   // Selected text menu
@@ -112,15 +117,16 @@ export class MenuManager {
   }
 
   textsOptions(): MenuItem[] {
-    return this.state.texts.map((text) => ({
-      id: text.id,
-      parentId: this.mainMenuIdInsert,
-      title: text.title,
-      contexts: ['editable'],
-    }))
+    return this.state.texts
+      .filter((text) => text.category === this.state.selectedCategoryId)
+      .map((text) => ({
+        id: text.id,
+        parentId: this.mainMenuIdInsert,
+        title: text.title,
+        contexts: ['editable'],
+      }))
   }
 
-  // listeners
   // save new text
   saveText(info: SelectedTextMenuInfo): void {
     if (!info.selectionText || info.selectionText.length < 1) return
@@ -137,7 +143,7 @@ export class MenuManager {
       category: info.menuItemId.toString(),
     }
 
-    console.log('saving info as new text entity ', newTextEntity)
+    console.log('MM: saving info as new text entity ', newTextEntity)
 
     // add to local data state
     this.state.texts.push(newTextEntity)
@@ -147,17 +153,16 @@ export class MenuManager {
 
     // TODO: send message to other parts of BEX
 
-    // recreate menu
     this.createMenu()
   }
 
   insertTextClicked(info: SelectedTextMenuInfo) {
     // insert text into text field
-    console.log('sending to dom', info)
+    console.log('MM: sending to dom', info)
     const textEntity = this.state.texts.find((text) => text.id === info.menuItemId)
-    console.log('textEntity', textEntity)
+    console.log('MM: textEntity', textEntity)
 
-    this.bridge.send('insert.text', {
+    this.bridge?.send('insert.text', {
       menuInfo: info,
       text: textEntity,
     })

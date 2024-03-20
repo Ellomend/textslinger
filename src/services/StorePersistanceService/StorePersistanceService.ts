@@ -26,29 +26,18 @@ export interface StorageStrategy {
 export class StorePersistenceService {
   private static storageType: StorageStrategy
 
-  static isBexMode(): boolean {
-    // const $q = useQuasar()
-    // return !!$q.platform.is.bex
-    return true
+  static useLocalStorage(): boolean {
+    // TODO: fix this later
+    // return !!process.env.BEX_LOCAL_STORAGE
+    return false
   }
 
-  static initialize(forceChromeStorage = false) {
-    if (forceChromeStorage) {
-      this.storageType = new ChromeStorageStrategy()
-      console.log('forced chrome storage')
-
+  static initialize(forceLocalStorage = false) {
+    if (forceLocalStorage) {
+      this.storageType = new LocalStorageStrategy()
       return
     }
-
-    if (this.isBexMode()) {
-      console.log('chrome')
-
-      this.storageType = new ChromeStorageStrategy()
-    } else {
-      console.log('local storage')
-
-      this.storageType = new LocalStorageStrategy()
-    }
+    this.storageType = new ChromeStorageStrategy()
   }
 
   static async saveData(data: PersistData, key: PersistanceKeys): Promise<void> {

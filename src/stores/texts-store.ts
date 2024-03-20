@@ -1,10 +1,13 @@
 import { defineStore } from 'pinia'
+import { useQuasar } from 'quasar'
 import { StorePersistenceService, TextsStateData } from 'src/services/StorePersistanceService/StorePersistanceService'
 import { CategoryEntity, TextEntity } from 'src/services/TextService/BaseTypes'
 import { checkTextEntityContains } from 'src/services/TextService/TextUtils'
 import { computed, ref, watch } from 'vue'
 
 export const useTextsStore = defineStore('texts', () => {
+  const $q = useQuasar()
+
   // State
   const texts = ref<TextEntity[]>([])
   const categories = ref<CategoryEntity[]>([])
@@ -42,6 +45,9 @@ export const useTextsStore = defineStore('texts', () => {
     }
 
     await StorePersistenceService.saveData(data, persistanceKey)
+    // send message to regenerate context menu on page
+
+    $q.bex.send('update.menu')
   }, {
     deep: true, // This ensures the watch is triggered on nested changes
   })
