@@ -4,14 +4,12 @@ export type ContextType = 'all' | 'page' | 'frame' | 'selection' | 'link' | 'edi
 // See also:
 // declare namespace chrome.contextMenus
 // interface CreateProperties
-export interface MainMenuItem {
+
+export interface MenuItem {
+  parentId?: string
   id: string
   title: string,
   contexts: ContextType | ContextType[],
-}
-
-export interface MenuItem extends MainMenuItem{
-  parentId?: string
 }
 
 export interface SelectedTextMenuInfo {

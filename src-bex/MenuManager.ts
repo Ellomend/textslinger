@@ -1,7 +1,7 @@
 import { StorePersistenceService, TextsStateData } from 'src/services/StorePersistanceService/StorePersistanceService'
 import { TextEntity } from 'src/services/TextService/BaseTypes'
 import { BexBridge } from '@quasar/app-vite/types/bex'
-import { MainMenuItem, MenuItem, SelectedTextMenuInfo } from './types'
+import { MenuItem, SelectedTextMenuInfo } from './types'
 
 export class MenuManager {
   // local data state
@@ -29,10 +29,8 @@ export class MenuManager {
   // add listeners
   addListeners() {
     const oc = chrome.contextMenus.onClicked
-    console.warn('MM: add listeners')
 
-    oc.addListener((info, tab) => {
-      console.warn('MM: catched click handling', info)
+    oc.addListener((info) => {
       const isTextSelected = info.editable === false
       && info.selectionText
       && info.selectionText.length > 0
@@ -40,10 +38,8 @@ export class MenuManager {
       const isFieldClicked = info.editable === true
 
       if (isTextSelected) {
-        console.log('MM: category clicked', info)
         this.saveText(info)
       } else if (isFieldClicked) {
-        console.log('MM: text clicked, send to dom')
         this.insertTextClicked(info)
       }
     })
@@ -51,7 +47,6 @@ export class MenuManager {
 
   async loadStateFromStorage() {
     const state = await this.storageService.loadData<TextsStateData>('texts')
-    console.log('MM: loaded state', state)
 
     this.state = {
       categories: [],
@@ -79,7 +74,6 @@ export class MenuManager {
   createMenu() {
     // clear all menu items
     chrome.contextMenus.removeAll()
-    console.log('MM: create menu')
 
     const menuItems: MenuItem[] = [
       {
@@ -97,12 +91,8 @@ export class MenuManager {
     ]
 
     menuItems.forEach((menuItem) => {
-      console.log('MM: create menu item', menuItem)
-
       chrome.contextMenus.create(menuItem)
     })
-
-    console.log('MM: menu created')
   }
 
   // Selected text menu
@@ -143,8 +133,6 @@ export class MenuManager {
       category: info.menuItemId.toString(),
     }
 
-    console.log('MM: saving info as new text entity ', newTextEntity)
-
     // add to local data state
     this.state.texts.push(newTextEntity)
 
@@ -158,9 +146,7 @@ export class MenuManager {
 
   insertTextClicked(info: SelectedTextMenuInfo) {
     // insert text into text field
-    console.log('MM: sending to dom', info)
     const textEntity = this.state.texts.find((text) => text.id === info.menuItemId)
-    console.log('MM: textEntity', textEntity)
 
     this.bridge?.send('insert.text', {
       menuInfo: info,
