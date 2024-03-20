@@ -1,47 +1,60 @@
 <template>
   <div class="TextItemExpandableCard q-mb-sm">
     <q-card
-      flat
       bordered
     >
       <div class="row">
-        <div class="col-12 q-px-md">
-          <div class="text-overline text-orange-9">
-            {{ text?.title }}
-          </div>
-          <div
-            v-if="!isLong"
-            class="text-caption text-grey"
-          >
-            {{ text.content }}
-          </div>
-        </div>
-        <div class="col-6 flex items-center justify-start q-pb-sm">
-          <div>
-            <q-btn
-              outline
-              color="green"
-              icon="content_copy"
-              size="xs"
-              class="q-ml-sm"
-              @click="copyText(text.content)"
-            />
-          </div>
-        </div>
-        <div class="col-6 flex items-center justify-end q-pb-sm">
-          <TextItemEditButton
-            :text="text"
-            class="q-mr-md"
-          />
-          <div>
-            <q-btn
+        <div class="col-1 bb flex flex items-center justify-center">
+          <div class="row gg">
+            <div class="col-12 flex items-center justify-center rr">
+              <q-btn
+                outline
+                color="green"
+                icon="content_copy"
+                size="xs"
+                class="q-ma-xs"
+                @click="copyText(text.content)"
+              />
+            </div>
+            <div
               v-if="isLong"
-              class="q-mr-sm"
-              color="blue"
-              outline
-              size="xs"
-              :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-              @click="expanded = !expanded"
+              class="col-12 flex items-center justify-center rr"
+            >
+              <q-btn
+                v-if="isLong"
+                class="q-ma-xs"
+                color="blue"
+                outline
+                size="xs"
+                :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
+                @click="expanded = !expanded"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-10 q-px-md flex items-center"
+        >
+          <div>
+            <div
+              class="text-overline text-orange-9 q-my-xs"
+            >
+              {{ text?.title }}
+            </div>
+            <div
+              v-if="!isLong"
+              class="text-caption text-grey q-my-xs"
+            >
+              {{ text.content }}
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-1 flex items-center justify-center"
+        >
+          <div>
+            <TextItemEditButton
+              :text="text"
             />
           </div>
         </div>
@@ -49,7 +62,7 @@
       <q-slide-transition>
         <div v-show="expanded">
           <q-separator />
-          <q-card-section class="text-subtitle2">
+          <q-card-section class="text-caption text-grey">
             <p>{{ text.content }}</p>
           </q-card-section>
         </div>

@@ -1,6 +1,6 @@
 export function useValidation() {
   const minLength = 2
-  const maxTitleLength = 100
+  const maxTitleLength = 80
 
   const validationMessages = {
     minLength: `Minimum length is ${minLength} characters.`,

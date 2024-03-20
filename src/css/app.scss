@@ -1,6 +1,6 @@
 // app global css in SCSS form
 
-/* 
+/*
 fix for BEX popup size problem with open dialogs
 
 steps to reproduce:
@@ -13,7 +13,7 @@ body.bex.q-body--prevent-scroll {
   position: static !important;
 }
 
-/* 
+/*
 stretching BEX popup window
 setting width and height
 TODO: find a better solution
@@ -22,6 +22,19 @@ maybe make sense to do it pogrammatically, will allow for resizing based on logi
 leaving like this for now
 */
 body.bex {
-  min-width: 600px;
+  min-width: 700px;
   min-height: 600px;
+}
+
+// for visual debugging grid
+.debug {
+  .bb {
+    border: 2px dashed blue;
+  }
+  .rr {
+    border: 1px dotted red;
+  }
+  .gg {
+    border: 2px double green;
+  }
 }
