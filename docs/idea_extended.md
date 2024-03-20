@@ -45,16 +45,3 @@ typescript
 pinia
 quasar framework
 
-[ ] UX/UI improvements
-[V] - Notifications
-[V] - Expandable
-[V] - Code cleanup (layout / views / debugs )
-[V] - Dialogs
-[V] - Texts and icons
-[V] - Forms (round)
-[V] - Forms (colors)
-[V] - Positions and alignments
-[V] - Extension icon
-[V] - Context menu integration
-[ ] - ReadMe
-
