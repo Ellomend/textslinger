@@ -16,10 +16,5 @@ const listener = ({ data, respond } : {data: EventData, respond: any}) => {
 
 export default bexContent((bridge) => {
   bridge.off('insert.text', listener)
-
-  // bridge.on('insert.text', ({ data, respond }) => {
-  //   insertTextIntoField(data)
-  //   respond({ ok: true })
-  // })
   bridge.on('insert.text', listener)
 })

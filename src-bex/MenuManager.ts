@@ -28,9 +28,7 @@ export class MenuManager {
 
   // add listeners
   addListeners() {
-    const oc = chrome.contextMenus.onClicked
-
-    oc.addListener((info) => {
+    chrome.contextMenus.onClicked.addListener((info) => {
       const isTextSelected = info.editable === false
       && info.selectionText
       && info.selectionText.length > 0
@@ -74,7 +72,6 @@ export class MenuManager {
   createMenu() {
     // clear all menu items
     chrome.contextMenus.removeAll()
-
     const menuItems: MenuItem[] = [
       {
         id: this.mainMenuIdSelect,
@@ -108,7 +105,9 @@ export class MenuManager {
 
   textsOptions(): MenuItem[] {
     return this.state.texts
-      .filter((text) => text.category === this.state.selectedCategoryId)
+      .filter((text) => (this.state.selectedCategoryId === text.category
+          || text.category === null
+          || this.state.selectedCategoryId === null))
       .map((text) => ({
         id: text.id,
         parentId: this.mainMenuIdInsert,
