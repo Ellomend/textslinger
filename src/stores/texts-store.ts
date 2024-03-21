@@ -138,6 +138,14 @@ export const useTextsStore = defineStore('texts', () => {
     }
   }
 
+  /**
+   * This function imports new texts and new categories into state
+   */
+  const importData = (newTexts: TextEntity[], newCategories: CategoryEntity[]) => {
+    texts.value = newTexts
+    categories.value = newCategories
+  }
+
   return {
     initializeState,
     clearPersistedState,
@@ -156,5 +164,6 @@ export const useTextsStore = defineStore('texts', () => {
     updateCategory,
     selectedId,
     getSelectedCategory,
+    importData,
   }
 })

@@ -31,8 +31,8 @@ export function useTextEntity(textProp: TextEntity | null | undefined = null) {
   }
 
   const textToClipBoard = (textString: string) => {
-    const string = wrapWithSpaces.value ? ` ${textString} ` : textString
-    copyToClipboard(string)
+    const content = wrapWithSpaces.value ? ` ${textString} ` : textString
+    copyToClipboard(content)
   }
 
   const filteredTexts = computed(() => textsStore.filteredTexts)

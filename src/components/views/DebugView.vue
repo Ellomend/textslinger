@@ -11,6 +11,9 @@
       <div class="col-12">
         <TextListContainer />
       </div>
+      <div class="col-12">
+        <OptionsVIew />
+      </div>
       <div class="col-12 q-pb-md">
         <q-card class="my-card bg-secondary text-white">
           <q-card-section>
@@ -48,10 +51,13 @@ import { defineComponent } from 'vue'
 import TextListContainer from '../TextListContainer.vue'
 import TextSearch from '../TextSearch.vue'
 import CategoriesDropdown from '../CategoriesDropdown.vue'
+import OptionsVIew from './OptionsVIew.vue'
 
 export default defineComponent({
   name: 'DebugView',
-  components: { TextListContainer, TextSearch, CategoriesDropdown },
+  components: {
+    TextListContainer, TextSearch, CategoriesDropdown, OptionsVIew,
+  },
   setup() {
     const { computedCategories } = useCategoryEntity()
     const { texts } = useTextEntity()
