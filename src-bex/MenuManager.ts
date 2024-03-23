@@ -1,6 +1,7 @@
 import { StorePersistenceService, TextsStateData } from 'src/services/StorePersistanceService/StorePersistanceService'
 import { TextEntity } from 'src/services/TextService/BaseTypes'
 import { BexBridge } from '@quasar/app-vite/types/bex'
+import { ll } from 'src/services/LoggerService/LoggerService'
 import { MenuItem, SelectedTextMenuInfo } from './types'
 
 export class MenuManager {
@@ -29,15 +30,18 @@ export class MenuManager {
   // add listeners
   addListeners() {
     chrome.contextMenus.onClicked.addListener((info) => {
-      const isTextSelected = info.editable === false
-      && info.selectionText
-      && info.selectionText.length > 0
+      ll(['menu item clicked', info], 'info')
+      const isTextSelected = (info.selectionText
+      && info.selectionText.length > 0)
 
       const isFieldClicked = info.editable === true
 
+      ll(['isTextSelected', isTextSelected, 'isFieldClicked', isFieldClicked], 'info')
       if (isTextSelected) {
+        ll('save text', 'info')
         this.saveText(info)
       } else if (isFieldClicked) {
+        ll('insert text', 'info')
         this.insertTextClicked(info)
       }
     })
@@ -132,19 +136,12 @@ export class MenuManager {
       category: info.menuItemId.toString(),
     }
 
-    // add to local data state
     this.state.texts.push(newTextEntity)
-
-    // save local data state to storage
     this.storageService.saveData(this.state, 'texts')
-
-    // TODO: send message to other parts of BEX
-
     this.createMenu()
   }
 
   insertTextClicked(info: SelectedTextMenuInfo) {
-    // insert text into text field
     const textEntity = this.state.texts.find((text) => text.id === info.menuItemId)
 
     this.bridge?.send('insert.text', {

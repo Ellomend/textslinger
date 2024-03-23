@@ -6,11 +6,16 @@ import { EventData } from './types'
 const listener = ({ data, respond } : {data: EventData, respond: any}) => {
   const { activeElement } = document
 
-  const content = `${data?.text?.content}`
-  if (activeElement && ['INPUT', 'TEXTAREA'].includes(activeElement.tagName) && (activeElement as HTMLInputElement | HTMLTextAreaElement).value !== undefined) {
-    (activeElement as HTMLInputElement | HTMLTextAreaElement).value += content
-    activeElement.dispatchEvent(new Event('input', { bubbles: true })) // To trigger any bound event listeners
+  // Ensuring the activeElement exists and is either an input or a textarea element.
+  if (activeElement && 'value' in activeElement) {
+    // Appending the text content from the event data to the value of the active element.
+    const contentToAdd = data?.text?.content || ''
+    activeElement.value += contentToAdd
+
+    // Dispatching an input event to trigger any bound event listeners, ensuring it bubbles.
+    activeElement.dispatchEvent(new Event('input', { bubbles: true }))
   }
+
   respond({ ok: true })
 }
 
