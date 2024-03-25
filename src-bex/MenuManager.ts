@@ -109,9 +109,15 @@ export class MenuManager {
 
   textsOptions(): MenuItem[] {
     return this.state.texts
-      .filter((text) => (this.state.selectedCategoryId === text.category
-          || text.category === null
-          || this.state.selectedCategoryId === null))
+      .filter((text) => {
+        // check if text is in selected category
+        if (this.state.selectedCategoryId) {
+          return text.category === this.state.selectedCategoryId
+        }
+        ll('show all texts', 'info')
+        // show all texts if no category is selected
+        return true
+      })
       .map((text) => ({
         id: text.id,
         parentId: this.mainMenuIdInsert,
